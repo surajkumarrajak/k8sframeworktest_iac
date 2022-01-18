@@ -10,14 +10,19 @@ node {
     stage('Update GIT') {
             script {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                                           //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
+                    #withCredentials([usernamePassword(credentialsId: 'github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+                     #   //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
+                        sh "git config user.email suraj@gmail.com"
+                        sh "git config user.name Suraj"
+                      #  //sh "git switch master"
                         sh "cat deployment.yaml"
                         sh "sed -i 's+myapp.*+myapp:${params.DOCKERTAG}+g' deployment.yaml"
                         sh "cat deployment.yaml"
                         sh "git add ."
                         sh "git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
-                        sh "git push origin master"
-      }
+#                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/kubernetesmanifest.git HEAD:main"
+			sh "git push origin master" 
+     }
     }
   }
 }
