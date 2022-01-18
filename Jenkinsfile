@@ -1,3 +1,4 @@
+
 node {
     def app
 
@@ -20,7 +21,9 @@ node {
                         sh "cat deployment.yaml"
                         sh "git add ."
                         sh "git commit -m 'Done by Jenkins Job changemanifest: ${env.BUILD_NUMBER}'"
-			sh "git push git@github.com:surajkumarrajak/k8sframeworktest_iac.git HEAD:master" 
+			//sh "git push git@github.com:surajkumarrajak/k8sframeworktest_iac.git HEAD:master" 
+			sh "git push https://surajkumarrajak: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@github.com/surajkumarrajak/k8sframeworktest_iac.git HEAD:master"
+
      }
     }
   }
